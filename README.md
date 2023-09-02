@@ -1,4 +1,4 @@
-# Tic-Tac-Toe Smart Contract for AntelopeIO Blockchain
+# Tic-Tac-Toe Smart Contract for AntelopeIO
 
 >! _This is an implementation based on [EOSIO Development Tutorials](https://developers.eos.io/welcome/v2.1/tutorials/tic-tac-toe-game-smart-contract-single-node). Navigete to the page to more details._
 
