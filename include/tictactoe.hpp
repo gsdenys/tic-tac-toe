@@ -56,10 +56,10 @@ public:
         static constexpr uint16_t boardHeight = 3;
 
         std::vector<uint8_t> board; ///< Represents the game board as a 3x3 grid.
-        name challenger; ///< The name of the challenger player.
-        name host; ///< The name of the host player.
-        name turn; ///< The name of the player whose turn it is.
-        name winner = none; ///< The name of the winner (if any).
+        name challenger;            ///< The name of the challenger player.
+        name host;                  ///< The name of the host player.
+        name turn;                  ///< The name of the player whose turn it is.
+        name winner = none;         ///< The name of the winner (if any).
 
         /**
          * @brief Default constructor for the game struct.
@@ -101,47 +101,70 @@ public:
     typedef eosio::multi_index<"games"_n, game> games; ///< Alias for the game table.
 
     /**
-     * @brief Action to create a new tic-tac-toe game.
+     * @brief Create a new Tic-Tac-Toe game.
+     *
      * @param challenger - The name of the challenger player.
      * @param host - The name of the host player.
+     *
+     * This action creates a new Tic-Tac-Toe game if the conditions are met:
+     * - Challenger is not the same as the host.
+     * - The game does not already exist.
      */
     [[eosio::action]] void create(const name &challenger, name &host);
 
     /**
-     * @brief Action to restart a tic-tac-toe game.
+     * @brief Restart a Tic-Tac-Toe game.
+     *
      * @param challenger - The name of the challenger player.
      * @param host - The name of the host player.
      * @param by - The name of the player initiating the restart.
+     *
+     * This action allows the host or challenger to restart a game if conditions are met:
+     * - The sender has the authority to restart the game.
+     * - The game exists.
      */
     [[eosio::action]] void restart(const name &challenger, const name &host, const name &by);
 
     /**
-     * @brief Action to close and end a tic-tac-toe game.
+     * @brief Close and end a Tic-Tac-Toe game.
+     *
      * @param challenger - The name of the challenger player.
      * @param host - The name of the host player.
+     *
+     * This action allows the host to close and end a game if the conditions are met:
+     * - The sender is the host.
      */
     [[eosio::action]] void close(const name &challenger, const name &host);
 
     /**
-     * @brief Action to make a move in the tic-tac-toe game.
+     * @brief Make a move in the Tic-Tac-Toe game.
+     *
      * @param challenger - The name of the challenger player.
      * @param host - The name of the host player.
      * @param by - The name of the player making the move.
      * @param row - The row of the cell to mark.
      * @param column - The column of the cell to mark.
+     *
+     * This action allows a player to make a move in the Tic-Tac-Toe game if conditions are met:
+     * - The sender has the authority to make the move.
+     * - The game is ongoing.
+     * - It is the sender's turn.
+     * - The move is valid.
      */
     [[eosio::action]] void move(const name &challenger, const name &host, const name &by, const uint16_t &row, const uint16_t &column);
 
 private:
     /**
-     * @brief Checks if a cell on the game board is empty.
+     * @brief Check if a cell on the game board is empty.
+     *
      * @param cell - The value of the cell to check.
      * @return bool - True if the cell is empty, false otherwise.
      */
     bool isEmptyCell(const uint8_t &cell);
 
     /**
-     * @brief Validates if a move is valid on the game board.
+     * @brief Validate if a move is valid on the game board.
+     *
      * @param row - The row of the cell to check.
      * @param column - The column of the cell to check.
      * @param board - The current state of the game board.
@@ -150,7 +173,8 @@ private:
     bool isValidMove(const uint16_t &row, const uint16_t &column, const std::vector<uint8_t> &board);
 
     /**
-     * @brief Determines the winner of the game.
+     * @brief Determine the winner of the game.
+     *
      * @param currentGame - The current game state.
      * @return name - The name of the winner or "none" if there is no winner yet.
      */
