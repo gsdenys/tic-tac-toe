@@ -44,37 +44,26 @@ chmod +x antelope_dev_environment.sh
 ./antelope_dev_environment.sh
 ```
 
+## Configure to Run
+
+Before compile and run this smart contract you need to:
+
+1. Create a wallet
+2. Create key pairs
+    1. to the game
+    2. to player 1
+    3. to player 2
+3. Create the account 
+    1. to the game
+    2. to player 1
+    3. to player 2
+4. Import the account private key to the wallet
+
+To help do this job the `cinfigure.sh` script was created. Execute it usingthe command bellow.
+
+```sh
+chmod +x configure.sh
+./configure.sh
+```
 ## Run It
 
-If you chosse the script way __go to step 2__. The develop environment is already configured to start itselt using `systemctl`, you can check it using the commands bellow.
-
-```sh
-systemctl status nodeos
-systemctl status keosd
-```
-
-3. Create the folder to store the keys, users identification and tokens.
-
-```sh
-mkdir tokens
-```
-
-4. Open and unlock the wallet.
-
-```sh
-cleos wallet open
-cleos wallet unlock --password $(cat ~/.wallet.pw)
-```
-
-5. Create a wallet called `local`.
-
-```sh
-cleos wallet create --name local --file .tokens/wallet.pw
-```
-
-6. 
-
-```sh 
-cleos create key | tee >(grep "Private key: " | cut -d ' ' -f 3 > private_key.txt) >(grep "Public key: " | cut -d ' ' -f 3 > public_key.txt)
-
-```
