@@ -10,7 +10,7 @@ The game is played by two players, the first one is the host, who starts the gam
 
 In the example below the player who placed `X` has won.
 
-| Row |  0  |  1  |  2  |
+|     |  0  |  1  |  2  |
 |-----|-----|-----|-----|
 |  0  |     |  O  |  X  |
 |  1  |     |  X  |     |
