@@ -22,7 +22,7 @@ When all the squares contain a marker and no player has three markers in a row, 
 
 All commands described in this document is based in a custom development environment that use a virtual machine with the `Ubuntu 22.04 LTS`. To install this development environment follow the steps bellow: 
 
->? You alternatively can follow the [official documentation](https://docs.antelope.io/docs/latest/getting-started/development-environment/prerequisites) to install it.
+> You alternatively can follow the [official documentation](https://docs.antelope.io/docs/latest/getting-started/development-environment/prerequisites) to install it.
 
 1. Update and upgrade the system;
 
@@ -65,5 +65,19 @@ To help do this job the `cinfigure.sh` script was created. Execute it usingthe c
 chmod +x configure.sh
 ./configure.sh
 ```
-## Run It
+## Build and install
+
+Follow this sequence to build and install the code:
+
+1. Create the build dir
+
+```sh
+mkdir build && cd build
+```
+
+2. Build the Smart Contract. This command will create the `.wasm` and `.abi` inside the `build/bin` dir.
+
+```sh
+cmake .. && make
+```
 
