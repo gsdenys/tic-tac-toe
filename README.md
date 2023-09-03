@@ -1,8 +1,8 @@
 # Tic-Tac-Toe Smart Contract
 
-> _This is an implementation based on [EOSIO Development Tutorials](https://developers.eos.io/welcome/v2.1/tutorials/tic-tac-toe-game-smart-contract-single-node). Navigete to the page to more details._
+> _This is an implementation based on [EOSIO Development Tutorials](https://developers.eos.io/welcome/v2.1/tutorials/tic-tac-toe-game-smart-contract-single-node). Navigate to the page to more details._
 
-This smart contract contains the tic-tac-toe game logic that runs over an AntelopeIO blockchain network. This version was concebed to runs over a single node, that means the players needs execute operation in the same network node.
+This smart contract contains the tic-tac-toe game logic that runs over an AntelopeIO blockchain network. This version was conceived to runs over a single node, that means the players needs execute operation in the same network node.
 
 ## Game Logic
 
@@ -18,7 +18,7 @@ In the example below the player who placed `X` has won.
 
 When all the squares contain a marker and no player has three markers in a row, then the game is a draw.
 
-## Install development environment
+## Install Development Environment
 
 All commands described in this document is based in a custom development environment that use a virtual machine with the `Ubuntu 22.04 LTS`. To install this development environment follow the steps bellow: 
 
@@ -44,26 +44,19 @@ chmod +x antelope_dev_environment.sh
 ./antelope_dev_environment.sh
 ```
 
-## Configure to Run
+## Configure
 
 Before compile and run this smart contract you need to:
 
-1. Create a wallet
-2. Create key pairs
-    1. to the game
-    2. to player 1
-    3. to player 2
-3. Create the account 
-    1. to the game
-    2. to player 1
-    3. to player 2
-4. Import the account private key to the wallet
+1. Create a wallet;
+2. Create key pairs to the smart contract, to player 1, and to player 2;
+3. Create the account to smart contract, to player 1, and to player 2;
+4. Import the account private key to the wallet;
 
-To help do this job the `cinfigure.sh` script was created. Execute it usingthe command bellow.
+To help do this job the `configure.sh` script was created. Execute it using the command bellow, that pass respectively the name of wallet, game, player 1, and player 2.
 
 ```sh
-chmod +x configure.sh
-./configure.sh
+./configure.sh local tictactoe host challenger
 ```
 ## Build and install
 
@@ -81,3 +74,28 @@ mkdir build && cd build
 cmake .. && make
 ```
 
+## Install Game to the Node
+
+The first thing to do is to grant that the wallet created for the game is `unlocked`. You can perform the command bellow and unlock it in case of it is lock.
+
+> For this example the wallet name is `local`.
+
+```sh
+cleos wallet unlock -n local --password $(cat .tokens/local.wallet)
+```
+
+so, navigate to `${project_home}/build/bin` and then execute the command bellow.
+ 
+```sh
+cleos set contract tictactoe ./ tictactoe.wasm tictactoe.abi -p tictactoe@active
+```
+
+Now the smart contract is installed in your node.
+
+## Play Game
+
+Execute the file `play.sh` to play the game, you can do this through the command:
+
+```sh
+./play.sh host challenger
+```
