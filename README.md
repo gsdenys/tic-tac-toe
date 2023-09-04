@@ -94,10 +94,54 @@ Now the smart contract is installed in your node.
 
 ## Play Game
 
-Execute the file `play.sh` to play the game, you can do this through the command:
+Now that the smart contract has been successfully deployed push smart contract actions to the blockchain to play the game. Note that the wallet should be `unlocked` before play the game.
+
+### Create Game
+
+Sign the push action with host@active, the host of the game:
 
 ```sh
-./play.sh host challenger
+cleos push action tictactoe create '{"challenger":"challenger", "host":"host"}' --permission host@active
+```
+
+### Making Game Moves
+
+The host makes the first move. The required payload in json format is:
+
+```sh
+cleos push action tictactoe move '{"challenger":"challenger", "host":"host", "by":"host", "row":0, "column":1}' --permission host@active
+```
+
+Then the challenger makes the second move. The required payload in json format is:
+
+```sh
+cleos push action tictactoe move '{"challenger":"challenger", "host":"host", "by":"challenger", "row":1, "column":1}' --permission challenger@active
+```
+
+Continue to make moves until the game ends with a win or a draw.
+
+### Check Game Status
+
+Look at the data in the multi index table to check the game status.
+
+```sh
+cleos get table tictactoe host games
+```
+
+### Restart the Game
+
+Sign the push action with host@active - the host of the game.
+
+```sh
+cleos push action tictactoe restart '{"challenger":"challenger", "host":"host", "by":"host"}' --permission host@active
+```
+
+### Close the Game
+
+Sign the push action with ‘host@active’ - the host of the game.
+
+```sh
+cleos push action tictactoe close '{"challenger":"challenger", "host":"host"}' --permission host@active
 ```
 
 ## MIT License
